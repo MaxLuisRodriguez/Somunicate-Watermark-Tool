@@ -1,11 +1,3 @@
-import numpy as np
-
-# Import the array functionality explicitly if necessary
-try:
-    np._import_array()
-except ImportError as e:
-    print(f"Failed to import numpy array functionality: {e}")
-
 import io
 import streamlit as st
 import librosa
@@ -28,17 +20,16 @@ def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
                 return None
 
             # Make the watermark file loop to match the length of the audio
-            watermark = np.tile(watermark, int(np.ceil(len(audio) / len(watermark))))
-            watermark = watermark[:len(audio)]
+            watermark = watermark * (len(audio) // len(watermark)) + watermark[:len(audio) % len(watermark)]
 
             # Adjust the watermark volume based on the slider value
-            watermark *= volume_factor
+            watermark = [sample * volume_factor for sample in watermark]
 
             # Overlay the watermark on the audio
-            watermarked_audio = audio + watermark
+            watermarked_audio = [audio_sample + watermark_sample for audio_sample, watermark_sample in zip(audio, watermark)]
 
             # Ensure audio levels are within range
-            watermarked_audio = np.clip(watermarked_audio, -1.0, 1.0)
+            watermarked_audio = [min(max(sample, -1.0), 1.0) for sample in watermarked_audio]
 
             # Export the watermarked audio to a byte stream
             output_buffer = io.BytesIO()
