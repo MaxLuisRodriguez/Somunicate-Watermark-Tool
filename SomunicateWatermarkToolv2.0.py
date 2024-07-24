@@ -1,10 +1,15 @@
-import io
 import numpy as np
+
+# Import the array functionality explicitly if necessary
+try:
+    np._import_array()
+except ImportError as e:
+    print(f"Failed to import numpy array functionality: {e}")
+
+import io
 import streamlit as st
 import librosa
 import soundfile as sf
-
-np.import_array()
 
 def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
     watermarked_audios = []
