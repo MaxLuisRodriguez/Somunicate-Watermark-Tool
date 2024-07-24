@@ -4,6 +4,8 @@ import streamlit as st
 import librosa
 import soundfile as sf
 
+np.import_array()
+
 def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
     watermarked_audios = []
     st.write("TESTING")
