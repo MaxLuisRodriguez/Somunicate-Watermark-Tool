@@ -6,6 +6,7 @@ import soundfile as sf
 
 def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
     watermarked_audios = []
+    st.write("TESTING")
     try:
         # Load the watermark file once
         watermark, sr_watermark = librosa.load(watermark_file, sr=None)
