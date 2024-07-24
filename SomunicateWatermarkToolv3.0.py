@@ -1,11 +1,12 @@
 import io
 import streamlit as st
 import librosa
+import numpy as np
 import soundfile as sf
 
 def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
     watermarked_audios = []
-    st.write("TESTING")
+    
     try:
         # Load the watermark file once
         watermark, sr_watermark = librosa.load(watermark_file, sr=None)
@@ -20,16 +21,17 @@ def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
                 return None
 
             # Make the watermark file loop to match the length of the audio
-            watermark = watermark * (len(audio) // len(watermark)) + watermark[:len(audio) % len(watermark)]
+            num_repeats = len(audio) // len(watermark) + 1
+            watermark = np.tile(watermark, num_repeats)[:len(audio)]
 
             # Adjust the watermark volume based on the slider value
-            watermark = [sample * volume_factor for sample in watermark]
+            watermark = watermark * volume_factor
 
             # Overlay the watermark on the audio
-            watermarked_audio = [audio_sample + watermark_sample for audio_sample, watermark_sample in zip(audio, watermark)]
+            watermarked_audio = audio + watermark
 
             # Ensure audio levels are within range
-            watermarked_audio = [min(max(sample, -1.0), 1.0) for sample in watermarked_audio]
+            watermarked_audio = np.clip(watermarked_audio, -1.0, 1.0)
 
             # Export the watermarked audio to a byte stream
             output_buffer = io.BytesIO()
