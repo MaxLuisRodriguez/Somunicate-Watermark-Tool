@@ -4,11 +4,8 @@ import streamlit as st
 import librosa
 import soundfile as sf
 
-st.write(np.__version__)
-
 def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
     watermarked_audios = []
-    st.write("TESTING")
     try:
         # Load the watermark file once
         watermark, sr_watermark = librosa.load(watermark_file, sr=None)
@@ -49,7 +46,7 @@ def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
     return watermarked_audios
 
 # Streamlit UI
-st.title("Audio Watermarking Tool")
+st.title("Somunicate Audio Watermarking Tool")
 
 # File uploader for multiple audio files
 uploaded_files = st.file_uploader("Upload audio files (multiple files allowed):", type=["wav", "mp3"], accept_multiple_files=True)
@@ -66,11 +63,6 @@ if uploaded_files and uploaded_watermark:
 
     if watermarked_audios:
         for filename, output_buffer in watermarked_audios:
-            # Create a download button for each watermarked audio file
-            st.download_button(
-                label=f"Download watermarked {filename}",
-                data=output_buffer,
-                file_name=f"watermarked_{filename}",
-                mime='audio/wav'
-            )
-
+            # Create a playback button for each watermarked audio file
+            st.audio(output_buffer, format='audio/wav')
+            st.write(f"Watermarked {filename}")
