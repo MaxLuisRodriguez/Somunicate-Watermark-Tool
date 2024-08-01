@@ -10,6 +10,9 @@ def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
         # Load the watermark file once
         watermark, sr_watermark = librosa.load(watermark_file, sr=None)
 
+        # Adjust the watermark volume based on the slider value once
+        watermark *= volume_factor
+
         for audio_file in audio_files:
             # Load the audio file
             audio, sr_audio = librosa.load(audio_file, sr=None)
@@ -20,14 +23,11 @@ def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
                 return None
 
             # Make the watermark file loop to match the length of the audio
-            watermark = np.tile(watermark, int(np.ceil(len(audio) / len(watermark))))
-            watermark = watermark[:len(audio)]
-
-            # Adjust the watermark volume based on the slider value
-            watermark *= volume_factor
+            watermark_repeated = np.tile(watermark, int(np.ceil(len(audio) / len(watermark))))
+            watermark_repeated = watermark_repeated[:len(audio)]
 
             # Overlay the watermark on the audio
-            watermarked_audio = audio + watermark
+            watermarked_audio = audio + watermark_repeated
 
             # Ensure audio levels are within range
             watermarked_audio = np.clip(watermarked_audio, -1.0, 1.0)
