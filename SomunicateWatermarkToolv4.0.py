@@ -17,10 +17,10 @@ def overlay(audio_files, watermark_file, volume_factor, output_format="wav"):
             # Load the audio file
             audio, sr_audio = librosa.load(audio_file, sr=None)
 
-            # Ensure that the sampling rates are the same
-            if sr_audio != sr_watermark:
-                st.error("Sampling rates of audio and watermark files must be the same.")
-                return None
+            # # Ensure that the sampling rates are the same
+            # if sr_audio != sr_watermark:
+            #     st.error("Sampling rates of audio and watermark files must be the same.")
+            #     return None
 
             # Make the watermark file loop to match the length of the audio
             watermark_repeated = np.tile(watermark, int(np.ceil(len(audio) / len(watermark))))
