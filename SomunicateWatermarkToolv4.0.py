@@ -74,7 +74,7 @@ if not uploaded_watermark:
         uploaded_watermark = watermark_path
     
 # Slider to adjust watermark volume
-volume_factor = st.slider("Adjust watermark volume:", min_value=0.0, max_value=1.0, value=0.5, step=0.05)
+volume_factor = st.slider("Adjust watermark volume:", min_value=0.0, max_value=10.0, value=0.5, step=0.05)
 
 if uploaded_files and uploaded_watermark:
     # Overlay watermark
