@@ -54,8 +54,27 @@ uploaded_files = st.file_uploader("Upload audio files (multiple files allowed):"
 # File uploader for the watermark file
 uploaded_watermark = st.file_uploader("Upload a watermark file:", type=["wav", "mp3"])
 
+# Default watermark options
+default_watermarks = {
+    "birds watermark": "birds_watermark.mp3",
+    "boat in watermark": "boat_in_watermark.mp3",
+    "cat watermark": "cat_watermark.mp3",
+    "somunicate-watermark": "somunicate_watermark.mp3"
+}
+
+if not uploaded_watermark:
+    st.write("Select from our default watermarks:")
+    
+    # Radio button for selecting one of the default watermarks
+    selected_watermark = st.radio("Default watermarks", list(default_watermarks.keys()))
+    
+    if selected_watermark:
+        watermark_path = default_watermarks[selected_watermark]
+        st.audio(watermark_path, format='audio/mp3')
+        uploaded_watermark = watermark_path
+    
 # Slider to adjust watermark volume
-volume_factor = st.slider("Adjust watermark volume:", min_value=0.0, max_value=10.0, value=0.5, step=0.05)
+volume_factor = st.slider("Adjust watermark volume:", min_value=0.0, max_value=1.0, value=0.5, step=0.05)
 
 if uploaded_files and uploaded_watermark:
     # Overlay watermark
