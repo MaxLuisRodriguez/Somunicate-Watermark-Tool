@@ -121,7 +121,8 @@ with col2:
         "birds watermark": "birds_watermark.mp3",
         "boat in watermark": "boat_in_watermark.mp3",
         "cat watermark": "cat_watermark.mp3",
-        "somunicate-watermark": "somunicate_watermark.mp3"
+        "somunicate-watermark": "somunicate_watermark.mp3",
+        "white noise": "01-White-Noise-10min.mp3"
     }
 
     uploaded_watermark = None  # Initialize the uploaded watermark variable
