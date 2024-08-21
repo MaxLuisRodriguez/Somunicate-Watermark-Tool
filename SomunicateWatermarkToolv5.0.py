@@ -80,8 +80,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Streamlit UI - Title at the top
-st.title("Somunicate Audio Watermarking Tool")
+# Using HTML and CSS for centering the title
+st.markdown(
+    """
+    <h1 style='text-align: center;'>Somunicate Audio Watermarking Tool</h1>
+    """, 
+    unsafe_allow_html=True
+)
 
 col1, col2 = st.columns([4.0, 4.0])
 
