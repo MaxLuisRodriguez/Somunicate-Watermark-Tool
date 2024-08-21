@@ -140,7 +140,7 @@ with col2:
             uploaded_watermark = watermark_path
 
 # Slider to adjust watermark volume
-volume_factor = st.slider("Adjust watermark volume:", min_value=0.0, max_value=1.0, value=0.5, step=0.05)
+volume_factor = st.slider("Adjust watermark volume:", min_value=0.0, max_value=5.0, value=0.5, step=0.05)
 
 st.write("Watermarked Sounds Display and Download: ")
 # Proceed if both audio files and a watermark are provided
