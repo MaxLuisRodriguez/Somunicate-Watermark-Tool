@@ -91,10 +91,10 @@ with col1:
 
     # Default UX Sound options
     default_UX_examples = {
-        "Example 1": "birds_watermark.mp3",
-        "E2": "boat_in_watermark.mp3",
-        "E3": "cat_watermark.mp3",
-        "E4": "somunicate_watermark.mp3"
+        "Example 1": "googleOk_apps-005.mp3",
+        "E2": "JBL_Consumer-003.mp3",
+        "E3": "nintendo_switch_consumer-010.mp3",
+        "E4": "Samsung_One_Apps-004.mp3"
     }
 
     st.write("Select from our default UX sounds:")
@@ -129,11 +129,9 @@ with col2:
     if custom_wm_check:
         # File uploader for the watermark file
         uploaded_watermark = st.file_uploader("Upload a watermark file:", type=["wav", "mp3"])
-    else:
-        st.write("Select from our default watermarks:")
-        
+    else:  
         # Radio button for selecting one of the default watermarks
-        selected_watermark = st.radio("Default watermarks", list(default_watermarks.keys()))
+        selected_watermark = st.radio("Select from our default watermarks:", list(default_watermarks.keys()))
         
         if selected_watermark:
             watermark_path = default_watermarks[selected_watermark]
