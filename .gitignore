@@ -1,0 +1,12 @@
+*.mp3
+*.wav
+*.flac
+*.ogg
+*.aiff
+*.csv
+*.tsv
+*.xlsx
+*.zip
+.env*
+__pycache__/
+data/
